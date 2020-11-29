@@ -11,4 +11,5 @@ module.exports = (app) => {
     app.post('/data/save', upload.single('file'), service.saveFile);
     app.get('/data/get', service.getFile);
     app.get('/data/template', service.getTemplateFile);
+    app.get('/data/checkFile', service.checkFile);
 };

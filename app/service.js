@@ -44,7 +44,21 @@ const saveFile = (req, res) => {
     res.status(200).send({ status: "success" });
 };
 
+const checkFile = (req, res) => {
+    if (!req.query || !req.query.name || !req.query.fileType) {
+        res.status(400).send('Bad Request');
+        return;
+    }
+
+    if (req.query.fileType === 'template') {
+        res.status(200).send({ found: constant.TEMPLATES[req.query.fileType] !== null })
+    } else {
+        res.status(200).send({ found: db.getFileByType(req.query.name) != null });
+    }
+};
+
 module.exports = {
+  checkFile: checkFile,
   getFile: getFile,
   getTemplateFile: getTemplateFile,
   saveFile: saveFile
